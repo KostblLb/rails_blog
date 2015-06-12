@@ -46,8 +46,9 @@ end
 
  private
   def article_params
-    safe_params = params.require(:article).permit(:title, :text, :tags)
+    safe_params = params.require(:article).permit(:title, :text, :tags, :_id)
     safe_params[:tags].gsub!(/,/,' ')
+    safe_params[:_id] = safe_params[:title].gsub(/\s/,'_').gsub(/\W/,'')+'_'+Time.now.strftime("%F_%H%M%S")
     safe_params
   end
   def search_param
